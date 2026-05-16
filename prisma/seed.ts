@@ -6,9 +6,9 @@ const prisma = new PrismaClient();
 async function main() {
   const adminPass = await bcrypt.hash("Admin@123", 12);
   await prisma.user.upsert({
-    where: { email: "admin@apexca.in" },
+    where: { email: "admin@vsbansalassociates.com" },
     create: {
-      email: "admin@apexca.in",
+      email: "admin@vsbansalassociates.com",
       name: "Portal Admin",
       passwordHash: adminPass,
       role: UserRole.ADMIN,
@@ -22,9 +22,9 @@ async function main() {
 
   const clientPass = await bcrypt.hash("Client@123", 12);
   await prisma.user.upsert({
-    where: { email: "client@apexca.in" },
+    where: { email: "client@vsbansalassociates.com" },
     create: {
-      email: "client@apexca.in",
+      email: "client@vsbansalassociates.com",
       name: "Sample Client",
       passwordHash: clientPass,
       role: UserRole.CLIENT,
@@ -48,7 +48,9 @@ async function main() {
     },
   });
 
-  console.info("Seeded admin (admin@apexca.in / Admin@123), client (client@apexca.in / Client@123), sample lead.");
+  console.info(
+    "Seeded admin (admin@vsbansalassociates.com / Admin@123), client (client@vsbansalassociates.com / Client@123), sample lead."
+  );
 }
 
 main()

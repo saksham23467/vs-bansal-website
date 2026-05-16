@@ -1,8 +1,9 @@
+import "dotenv/config";
 import { defineConfig } from "prisma/config";
 
 /**
- * Placeholder URL for `prisma generate` on CI/Vercel when DATABASE_URL is not set yet.
- * Runtime still requires a real DATABASE_URL in production.
+ * Loads DATABASE_URL from .env / .env.local.
+ * Placeholder only used for `prisma generate` on CI when unset.
  */
 const databaseUrl =
   process.env.DATABASE_URL ??
@@ -16,5 +17,8 @@ export default defineConfig({
   engine: "classic",
   datasource: {
     url: databaseUrl,
+  },
+  seed: {
+    command: "tsx prisma/seed.ts",
   },
 });
