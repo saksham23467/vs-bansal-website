@@ -1,36 +1,91 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# VS Bansal & Associates — Website
 
-## Getting Started
+Production marketing site for **VS Bansal & Associates** (CA Sumit Bansal & CA Vineeta Bansal), Pitampura, Delhi. Includes programmatic local SEO (83+ city/service pages), blog, contact API (Prisma + Resend), client portal, and admin area — Next.js 16 + Auth.js v5.
 
-First, run the development server:
+## Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Node.js 20+
+- PostgreSQL database
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Setup
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. **Clone and install**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   ```bash
+   npm install
+   ```
 
-## Learn More
+   `postinstall` runs `prisma generate` automatically.
 
-To learn more about Next.js, take a look at the following resources:
+2. **Environment**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   ```bash
+   cp .env.example .env.local
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   Set `DATABASE_URL` and `AUTH_SECRET` (e.g. `openssl rand -base64 32`). For local auth callbacks, set `NEXTAUTH_URL` / `NEXT_PUBLIC_SITE_URL` to `http://localhost:3000`.
 
-## Deploy on Vercel
+3. **Database schema**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   ```bash
+   npm run db:push
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   Or use migrations if you prefer:
+
+   ```bash
+   npx prisma migrate dev
+   ```
+
+4. **Seed demo users**
+
+   ```bash
+   npm run db:seed
+   ```
+
+   - Admin: `admin@vsbansalassociates.com` / `Admin@123`
+   - Client: `client@vsbansalassociates.com` / `Client@123`
+
+## SEO architecture
+
+- **Programmatic pages**: `/chartered-accountant-delhi`, `/gst-consultant-noida`, etc. (10 cities × 7 services + guides)
+- **Schema**: Organization, LocalBusiness/AccountingService, FAQ, Article, Review, Breadcrumb, Service
+- **Sitemap & robots**: Auto-generated at `/sitemap.xml` and `/robots.txt`
+- **Dynamic OG**: `/api/og?title=...`
+- **Blog SEO**: Category/tag archives, TOC, related posts
+- **Analytics**: Set `NEXT_PUBLIC_GA_ID`, `NEXT_PUBLIC_CLARITY_ID`, `NEXT_PUBLIC_META_PIXEL_ID`, `NEXT_PUBLIC_GSC_VERIFICATION` in `.env.local`
+
+Update `src/lib/site-config.ts` with your real phone number and Google Maps embed URL before launch.
+
+5. **Develop**
+
+   ```bash
+   npm run dev
+   ```
+
+6. **Production build**
+
+   ```bash
+   npm run build
+   npm start
+   ```
+
+## Scripts
+
+| Script        | Description                |
+| ------------- | -------------------------- |
+| `db:generate` | `prisma generate`         |
+| `db:push`     | Push schema to the database |
+| `db:seed`     | Run `prisma/seed.ts`      |
+
+## Content
+
+Blog posts live in `content/blog/` as Markdown with YAML front matter (`title`, `excerpt`, `category`, `tags`, `date`, `author`, `featured`, optional `coverImage`).
+
+## Contact
+
+`POST /api/contact` validates input, stores a `Lead` in Prisma, and—if `RESEND_API_KEY` is set—sends a notification to `CONTACT_NOTIFY_EMAIL`.
+
+## Licence
+
+Private / All rights reserved unless otherwise stated.
