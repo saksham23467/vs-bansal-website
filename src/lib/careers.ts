@@ -25,20 +25,21 @@ function mapJob(job: DbJob): CareerJob {
   };
 }
 
+const hiddenPublicSlugs = ["ca-intern", "chartered-accountant"];
+
 /**
  * Public job listing for the careers page. Returns OPEN jobs from the database,
- * falling back to the seeded default positions if the table is empty or the
- * careers migration has not been applied yet.
+ * excluding the former CA Intern and Chartered Accountant postings.
  */
 export async function getPublicJobs(): Promise<CareerJob[]> {
   try {
     const jobs = await prisma.job.findMany({
-      where: { status: "OPEN" },
+      where: {
+        status: "OPEN",
+        slug: { notIn: hiddenPublicSlugs },
+      },
       orderBy: [{ order: "asc" }, { createdAt: "asc" }],
     });
-    if (jobs.length === 0) {
-      return defaultJobs.filter((j) => j.status === "OPEN");
-    }
     return jobs.map(mapJob);
   } catch {
     return defaultJobs.filter((j) => j.status === "OPEN");

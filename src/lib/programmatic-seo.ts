@@ -107,6 +107,10 @@ function buildCaPage(city: City): SeoPage {
           "CA near me",
           "chartered accountant Delhi",
           "CA Pitampura",
+          "CA in NSP",
+          "CA in Netaji Subhash Place",
+          "ITR filing near me",
+          "accountant near me",
           "GST consultant Delhi",
           ...siteConfig.keywords.slice(0, 4),
         ]
@@ -295,6 +299,11 @@ export function getRelatedSeoPages(page: SeoPage, limit = 6): SeoPage[] {
   if (page.city) {
     return all
       .filter((p) => p.slug !== page.slug && p.city?.slug === page.city?.slug)
+      .slice(0, limit);
+  }
+  if (page.type === "keyword-landing") {
+    return all
+      .filter((p) => p.type === "keyword-landing" && p.slug !== page.slug)
       .slice(0, limit);
   }
   return all.filter((p) => p.type === "guide" && p.slug !== page.slug).slice(0, limit);

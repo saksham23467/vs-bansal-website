@@ -19,7 +19,7 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { siteConfig } from "@/lib/site-config";
 
 export const metadata = buildMetadata({
-  title: "Best CA in Delhi & India | Chartered Accountant Near Me",
+  title: "Best CA in Delhi | CA Near Me Pitampura & NSP | ITR Filing",
   description: siteConfig.description,
   path: "/",
   keywords: [...siteConfig.keywords],
@@ -42,6 +42,14 @@ const homeFaqs = [
   {
     question: "What services do you offer?",
     answer: "GST filing, income tax returns, TDS, company registration, ROC/MCA compliance, payroll, audit & assurance, Virtual CFO, and startup fundraise support.",
+  },
+  {
+    question: "Can I get ITR filing near me in Pitampura or NSP?",
+    answer: `Yes. Visit ${siteConfig.address.full} or send Form 16 / AIS on WhatsApp. We file salary, business, and capital-gains ITRs and e-verify them.`,
+  },
+  {
+    question: "Do you have a CA office in Netaji Subhash Place (NSP)?",
+    answer: `Yes. Our head office is in PP Trade Centre at Netaji Subhash Place, Pitampura—minutes from NSP metro. Search CA in Pitampura, CA in NSP, or accountant near me and you will reach this office.`,
   },
 ];
 

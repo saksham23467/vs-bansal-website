@@ -59,93 +59,10 @@ export const QUALIFICATION_OPTIONS = [
 ] as const;
 
 /**
- * Default positions, used as a fallback when the database has no jobs yet
- * (e.g. before running prisma/careers-migration.sql). Admins manage live
- * jobs from /portal/admin/careers once the migration is applied.
+ * Fallback listings when the careers table is empty or unavailable.
+ * Live openings are managed from /portal/admin/careers.
  */
-export const defaultJobs: CareerJob[] = [
-  {
-    id: "ca-intern",
-    slug: "ca-intern",
-    title: "CA Intern",
-    location: "Delhi NCR & Punjab",
-    type: "INTERNSHIP",
-    duration: "3-6 Months",
-    experience: null,
-    compensation: "₹25,000 - ₹30,000 per month",
-    overview:
-      "We are seeking motivated commerce students and aspiring Chartered Accountants who want practical exposure to taxation, GST compliance, accounting, and financial advisory.",
-    responsibilities: [
-      "Assist in GST return preparation",
-      "Support bookkeeping activities",
-      "Help prepare tax computations",
-      "Perform basic financial analysis",
-      "Assist with statutory filings",
-      "Work with senior consultants on client engagements",
-    ],
-    requirements: [
-      "B.Com/BBA student or graduate",
-      "Strong understanding of accounting fundamentals",
-      "Knowledge of Tally, Zoho Books, or Excel",
-      "Good communication skills",
-      "Attention to detail",
-    ],
-    preferred: ["Basic GST knowledge", "Familiarity with accounting software"],
-    benefits: [
-      "Practical industry exposure",
-      "Mentorship from experienced CAs",
-      "Certificate of completion",
-      "Potential PPO opportunity",
-    ],
-    exposureAreas: [],
-    status: "OPEN",
-    order: 1,
-  },
-  {
-    id: "chartered-accountant",
-    slug: "chartered-accountant",
-    title: "Chartered Accountant (CA)",
-    location: "Delhi NCR & Punjab",
-    type: "FULL_TIME",
-    duration: null,
-    experience: "2-5 Years",
-    compensation: "₹7 LPA - ₹10 LPA",
-    overview:
-      "We are seeking a qualified Chartered Accountant to lead client engagements, manage taxation and compliance matters, and provide strategic financial advisory services.",
-    responsibilities: [
-      "Manage GST and income tax matters",
-      "Review financial statements",
-      "Conduct tax planning and advisory",
-      "Handle client relationships",
-      "Lead audit engagements",
-      "Ensure regulatory compliance",
-      "Mentor interns and article trainees",
-    ],
-    requirements: [
-      "Qualified Chartered Accountant",
-      "2-5 years post qualification experience",
-      "Strong knowledge of Indian taxation laws",
-      "Experience in audits and compliance",
-      "Advanced Excel skills",
-      "Excellent communication skills",
-    ],
-    preferred: [
-      "Startup advisory experience",
-      "Virtual CFO experience",
-      "ROC compliance knowledge",
-    ],
-    benefits: [
-      "Competitive compensation",
-      "Professional development support",
-      "Leadership opportunities",
-      "Exposure to diverse industries",
-      "Performance incentives",
-    ],
-    exposureAreas: [],
-    status: "OPEN",
-    order: 2,
-  },
-];
+export const defaultJobs: CareerJob[] = [];
 
 export function jobCompensationLabel(job: CareerJob): string | null {
   return job.compensation ?? null;

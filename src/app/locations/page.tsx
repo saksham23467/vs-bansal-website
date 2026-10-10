@@ -1,18 +1,23 @@
+import Link from "next/link";
 import { MapPin, Phone, Mail } from "lucide-react";
 import { buildMetadata } from "@/lib/seo";
 import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 import { Card, CardContent } from "@/components/ui/card";
+import { localSearchLinks } from "@/lib/local-search-links";
 import { getTelHref, siteConfig } from "@/lib/site-config";
 
 export const metadata = buildMetadata({
-  title: "Our Offices — Delhi NCR & Punjab",
+  title: "Our Offices — Pitampura, NSP, Delhi NCR & Punjab",
   description:
-    "V S bansal & associates has offices in Delhi NCR (Pitampura) and Punjab (Baltana), serving businesses across India with GST, income tax, ROC, audit, and Virtual CFO services.",
+    "Visit V S bansal & associates in Pitampura (Netaji Subhash Place / NSP) and Punjab. CA near me, ITR filing, GST, and accountant services for Delhi NCR and India.",
   path: "/locations",
   keywords: [
     "CA firm Delhi NCR",
     "CA firm Punjab",
     "chartered accountant Pitampura",
+    "CA in NSP",
+    "CA in Netaji Subhash Place",
+    "CA near me Pitampura",
     "chartered accountant Baltana Punjab",
     "GST consultant Delhi NCR",
   ],
@@ -103,6 +108,27 @@ export default function LocationsPage() {
                 </CardContent>
               </Card>
             ))}
+          </div>
+
+          <div className="mt-16">
+            <h2 className="text-2xl font-bold text-navy-900 dark:text-white">
+              Popular searches
+            </h2>
+            <p className="mt-2 max-w-2xl text-navy-600 dark:text-navy-300">
+              People looking for a CA near Pitampura and Netaji Subhash Place often search these terms.
+            </p>
+            <ul className="mt-6 flex flex-wrap gap-3">
+              {localSearchLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="inline-flex rounded-full border border-navy-200 bg-white px-4 py-2 text-sm font-medium text-navy-800 transition-colors hover:border-royal-300 hover:bg-royal-50 hover:text-royal-700 dark:border-navy-700 dark:bg-navy-900 dark:text-navy-100"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>

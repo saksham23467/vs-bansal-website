@@ -131,7 +131,9 @@ export default async function CareersPage() {
               <FadeIn>
                 <span className="inline-flex items-center gap-2 rounded-full bg-royal-500/10 px-4 py-1.5 text-sm font-semibold text-royal-700 dark:text-royal-300">
                   <Briefcase className="h-4 w-4" />
-                  We&apos;re hiring across Delhi NCR
+                  {jobs.length > 0
+                    ? "We're hiring across Delhi NCR"
+                    : "Careers at V S bansal & associates"}
                 </span>
                 <h1 className="mt-5 text-4xl font-bold tracking-tight text-navy-900 sm:text-5xl lg:text-6xl dark:text-white">
                   Build Your Career With Industry Experts
@@ -147,12 +149,14 @@ export default async function CareersPage() {
                   <ApplyButton size="lg" variant="outline" />
                 </div>
                 <div className="mt-8 flex flex-wrap gap-6 text-sm text-navy-600 dark:text-navy-300">
-                  <div>
-                    <p className="text-2xl font-bold text-navy-900 dark:text-white">
-                      {jobs.length}+
-                    </p>
-                    <p>Open roles</p>
-                  </div>
+                  {jobs.length > 0 && (
+                    <div>
+                      <p className="text-2xl font-bold text-navy-900 dark:text-white">
+                        {jobs.length}
+                      </p>
+                      <p>Open roles</p>
+                    </div>
+                  )}
                   <div>
                     <p className="text-2xl font-bold text-navy-900 dark:text-white">
                       ICAI

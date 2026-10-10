@@ -28,6 +28,23 @@ const nextConfig: NextConfig = {
     return [
       { source: "/admin", destination: "/portal/admin", permanent: true },
       { source: "/admin/documents", destination: "/portal/admin/documents", permanent: true },
+      { source: "/ca-near-me", destination: "/chartered-accountant-near-me", permanent: true },
+      { source: "/ca-office-near-me", destination: "/chartered-accountant-near-me", permanent: true },
+      { source: "/ca-in-nsp", destination: "/ca-in-netaji-subhash-place", permanent: true },
+      { source: "/ca-nsp", destination: "/ca-in-netaji-subhash-place", permanent: true },
+      { source: "/chartered-accountant-nsp", destination: "/ca-in-netaji-subhash-place", permanent: true },
+      { source: "/best-ca-nsp", destination: "/ca-in-netaji-subhash-place", permanent: true },
+      { source: "/chartered-accountant-pitampura", destination: "/ca-in-pitampura", permanent: true },
+      { source: "/ca-pitampura", destination: "/ca-in-pitampura", permanent: true },
+      { source: "/ca-office-pitampura", destination: "/ca-in-pitampura", permanent: true },
+      { source: "/itr-filing-pitampura", destination: "/itr-filing-near-me", permanent: true },
+      { source: "/income-tax-return-filing-near-me", destination: "/itr-filing-near-me", permanent: true },
+      { source: "/income-tax-filing-near-me", destination: "/itr-filing-near-me", permanent: true },
+      { source: "/accountant-in-pitampura", destination: "/accountant-near-me", permanent: true },
+      { source: "/accountant-in-delhi", destination: "/accountant-near-me", permanent: true },
+      { source: "/tax-accountant-near-me", destination: "/accountant-near-me", permanent: true },
+      { source: "/gst-consultant-near-me", destination: "/gst-filing-near-me", permanent: true },
+      { source: "/gst-registration-near-me", destination: "/gst-filing-near-me", permanent: true },
     ];
   },
   experimental: {

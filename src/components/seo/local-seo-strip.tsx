@@ -1,11 +1,7 @@
 import Link from "next/link";
+import { localSearchLinks } from "@/lib/local-search-links";
 
-const links = [
-  { href: "/best-ca-in-delhi", label: "Best CA in Delhi" },
-  { href: "/best-chartered-accountant-india", label: "Best CA in India" },
-  { href: "/chartered-accountant-near-me", label: "CA near me" },
-  { href: "/chartered-accountant-delhi", label: "Chartered accountant Delhi" },
-] as const;
+const links = localSearchLinks.slice(0, 8);
 
 export function LocalSeoStrip() {
   return (

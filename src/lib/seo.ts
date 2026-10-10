@@ -115,9 +115,12 @@ export function localBusinessJsonLd() {
     knowsAbout: [
       "GST filing",
       "Income tax return",
+      "ITR filing",
       "ROC compliance",
       "Company registration",
       "Chartered accountancy",
+      "Accountant",
+      "Tax consultant",
       "Virtual CFO",
       "Tax planning India",
     ],

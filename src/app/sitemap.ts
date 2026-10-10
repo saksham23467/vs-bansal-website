@@ -5,9 +5,12 @@ import { getAllPostSlugs } from "@/lib/blog";
 import { getAllSeoSlugs } from "@/lib/programmatic-seo";
 import { getAllCategories, getAllTags } from "@/lib/blog";
 
+/** Frozen so content edits / deploys do not bump lastModified. */
+const SITEMAP_LAST_MODIFIED = new Date("2026-08-31T00:00:00.000Z");
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = siteConfig.url;
-  const now = new Date();
+  const now = SITEMAP_LAST_MODIFIED;
 
   const staticRoutes: MetadataRoute.Sitemap = [
     "",
@@ -38,6 +41,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "best-ca-in-delhi",
     "best-chartered-accountant-india",
     "chartered-accountant-near-me",
+    "ca-in-pitampura",
+    "ca-in-netaji-subhash-place",
+    "itr-filing-near-me",
+    "accountant-near-me",
+    "tax-consultant-near-me",
+    "gst-filing-near-me",
+    "best-ca-in-pitampura",
+    "ca-in-rohini",
+    "ca-for-itr-filing",
+    "company-registration-near-me",
   ]);
 
   const seoRoutes: MetadataRoute.Sitemap = getAllSeoSlugs().map((slug) => ({

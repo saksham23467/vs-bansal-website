@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { SVGProps } from "react";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { Logo } from "@/components/layout/logo";
+import { localSearchLinks } from "@/lib/local-search-links";
 import { getTelHref, siteConfig } from "@/lib/site-config";
 
 const socialClass = "rounded-lg bg-navy-800 p-2.5 transition-colors hover:bg-royal-600";
@@ -48,11 +49,7 @@ const footerLinks = {
     { href: "/portal/login", label: "Client Portal" },
   ],
   resources: [
-    { href: "/best-ca-in-delhi", label: "Best CA in Delhi" },
-    { href: "/best-chartered-accountant-india", label: "Best CA in India" },
-    { href: "/chartered-accountant-near-me", label: "CA near me" },
-    { href: "/chartered-accountant-delhi", label: "CA in Delhi" },
-    { href: "/gst-consultant-noida", label: "GST Consultant Noida" },
+    ...localSearchLinks.slice(0, 6),
     { href: "/guides", label: "Tax Guides" },
   ],
 };
