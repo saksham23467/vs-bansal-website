@@ -15,9 +15,11 @@ export type BlogPostMeta = {
   tags: string[];
   coverImage: string;
   date: string;
+  updated: string;
   author: string;
   featured: boolean;
   readingTime: string;
+  wordCount: number;
 };
 
 export type BlogPost = BlogPostMeta & {
@@ -125,9 +127,11 @@ export function getPostMetaBySlug(slug: string): BlogPostMeta | null {
     tags: (data.tags as string[]) ?? [],
     coverImage: (data.coverImage as string) ?? "/images/blog/default.jpg",
     date: data.date as string,
+    updated: ((data.updated as string) ?? (data.date as string)),
     author: (data.author as string) ?? "V S bansal & associates",
     featured: Boolean(data.featured),
     readingTime: stats.text,
+    wordCount: stats.words,
   };
 }
 

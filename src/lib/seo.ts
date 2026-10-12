@@ -34,7 +34,10 @@ export function buildMetadata({
     creator: siteConfig.name,
     publisher: siteConfig.name,
     metadataBase: new URL(siteConfig.url),
-    alternates: { canonical: url },
+    alternates: {
+      canonical: url,
+      languages: { "en-IN": url },
+    },
     openGraph: {
       type: "website",
       locale: "en_IN",
@@ -75,6 +78,16 @@ function postalAddress() {
   };
 }
 
+function logoImage() {
+  return {
+    "@type": "ImageObject" as const,
+    url: `${siteConfig.url}/ca-india-logo.png`,
+    width: 512,
+    height: 512,
+    caption: siteConfig.name,
+  };
+}
+
 export function organizationJsonLd() {
   return {
     "@context": "https://schema.org",
@@ -82,18 +95,67 @@ export function organizationJsonLd() {
     "@id": `${siteConfig.url}/#organization`,
     name: siteConfig.name,
     legalName: siteConfig.legalName,
+    alternateName: ["VS Bansal & Associates", "V S Bansal Associates"],
     url: siteConfig.url,
-    logo: `${siteConfig.url}/ca-india-logo.png`,
+    logo: logoImage(),
+    image: logoImage(),
     description: siteConfig.description,
     email: siteConfig.email,
     telephone: siteConfig.phone,
     foundingDate: String(siteConfig.founded),
+    foundingLocation: {
+      "@type": "Place",
+      name: "Pitampura, Delhi, India",
+      address: postalAddress(),
+    },
     address: postalAddress(),
-    sameAs: Object.values(siteConfig.social),
+    naics: siteConfig.naics,
+    isicV4: siteConfig.isic,
+    knowsAbout: [
+      "Chartered accountancy",
+      "GST filing",
+      "Income tax return",
+      "ROC compliance",
+    ],
+    memberOf: {
+      "@type": "Organization",
+      name: "Institute of Chartered Accountants of India",
+      url: siteConfig.icaiUrl,
+      sameAs: siteConfig.icaiWikidata,
+    },
+    identifier: [
+      {
+        "@type": "PropertyValue",
+        propertyID: "NAICS",
+        value: siteConfig.naics,
+      },
+      {
+        "@type": "PropertyValue",
+        propertyID: "ISIC",
+        value: siteConfig.isic,
+      },
+    ],
+    sameAs: [
+      ...Object.values(siteConfig.social),
+      siteConfig.googleMapsUrl,
+      siteConfig.icaiUrl,
+      siteConfig.icaiWikidata,
+    ],
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        contactType: "customer service",
+        telephone: siteConfig.phone,
+        email: siteConfig.email,
+        areaServed: "IN",
+        availableLanguage: ["en", "hi"],
+      },
+    ],
     employee: siteConfig.partners.map((p) => ({
       "@type": "Person",
       name: p.name,
       jobTitle: p.role,
+      worksFor: { "@id": `${siteConfig.url}/#organization` },
       knowsAbout: p.expertise,
     })),
   };
@@ -105,8 +167,9 @@ export function localBusinessJsonLd() {
     "@type": ["AccountingService", "ProfessionalService", "LocalBusiness"],
     "@id": `${siteConfig.url}/#localbusiness`,
     name: siteConfig.name,
-    image: `${siteConfig.url}/ca-india-logo.png`,
+    image: logoImage(),
     url: siteConfig.url,
+    additionalType: "https://schema.org/AccountingService",
     telephone: siteConfig.phone,
     email: siteConfig.email,
     priceRange: "₹₹",
@@ -148,6 +211,16 @@ export function localBusinessJsonLd() {
       reviewCount: siteConfig.rating.count,
     },
     parentOrganization: { "@id": `${siteConfig.url}/#organization` },
+    memberOf: {
+      "@type": "Organization",
+      name: "Institute of Chartered Accountants of India",
+      sameAs: siteConfig.icaiWikidata,
+    },
+    sameAs: [
+      ...Object.values(siteConfig.social),
+      siteConfig.googleMapsUrl,
+      siteConfig.icaiWikidata,
+    ],
   };
 }
 
@@ -162,7 +235,10 @@ export function websiteJsonLd() {
     publisher: { "@id": `${siteConfig.url}/#organization` },
     potentialAction: {
       "@type": "SearchAction",
-      target: `${siteConfig.url}/blog?q={search_term_string}`,
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${siteConfig.url}/search?q={search_term_string}`,
+      },
       "query-input": "required name=search_term_string",
     },
   };
@@ -173,6 +249,7 @@ export function serviceJsonLd(params: {
   description: string;
   url: string;
   areaServed?: string;
+  price?: string;
 }) {
   return {
     "@context": "https://schema.org",
@@ -181,8 +258,22 @@ export function serviceJsonLd(params: {
     description: params.description,
     url: params.url,
     provider: { "@id": `${siteConfig.url}/#localbusiness` },
-    areaServed: params.areaServed ?? "India",
-    serviceType: "Accounting and Tax Services",
+    areaServed: {
+      "@type": "Country",
+      name: params.areaServed ?? "India",
+    },
+    serviceType: params.name,
+    category: "Accounting and Tax Services",
+    audience: { "@type": "BusinessAudience", name: "SMEs and professionals in India" },
+    termsOfService: `${siteConfig.url}/contact`,
+    offers: {
+      "@type": "Offer",
+      url: params.url,
+      priceCurrency: "INR",
+      availability: "https://schema.org/InStock",
+      description: params.price ?? "Custom quote after a short scoping call",
+      seller: { "@id": `${siteConfig.url}/#localbusiness` },
+    },
   };
 }
 
@@ -191,24 +282,44 @@ export function articleJsonLd(params: {
   description: string;
   url: string;
   datePublished: string;
+  dateModified?: string;
   author: string;
   image?: string;
+  wordCount?: number;
+  articleSection?: string;
+  keywords?: string[];
 }) {
+  const image =
+    params.image ??
+    `${siteConfig.url}/api/og?title=${encodeURIComponent(params.title)}`;
   return {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: params.title,
     description: params.description,
     url: params.url,
+    inLanguage: "en-IN",
     datePublished: params.datePublished,
-    author: { "@type": "Person", name: params.author },
-    publisher: {
+    dateModified: params.dateModified ?? params.datePublished,
+    wordCount: params.wordCount,
+    articleSection: params.articleSection,
+    keywords: params.keywords?.join(", "),
+    author: {
       "@type": "Organization",
-      name: siteConfig.name,
-      logo: { "@type": "ImageObject", url: `${siteConfig.url}/ca-india-logo.png` },
+      name: params.author,
+      url: siteConfig.url,
     },
-    image: params.image ?? `${siteConfig.url}/api/og`,
-    mainEntityOfPage: params.url,
+    publisher: { "@id": `${siteConfig.url}/#organization` },
+    image: {
+      "@type": "ImageObject",
+      url: image,
+      width: 1200,
+      height: 630,
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": params.url,
+    },
   };
 }
 

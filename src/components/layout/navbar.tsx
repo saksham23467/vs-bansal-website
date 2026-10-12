@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
-import { Menu, X, Moon, Sun, Phone } from "lucide-react";
+import { Menu, X, Moon, Sun, Phone, Search } from "lucide-react";
 import { useTheme } from "next-themes";
 import { motion, AnimatePresence } from "framer-motion";
 import { Logo } from "@/components/layout/logo";
@@ -78,6 +78,12 @@ export function Navbar() {
             </button>
           )}
           <Button variant="ghost" size="sm" asChild>
+            <Link href="/search" aria-label="Search the website">
+              <Search className="h-4 w-4" />
+              Search
+            </Link>
+          </Button>
+          <Button variant="ghost" size="sm" asChild>
             <Link href="/portal/login">Client Portal</Link>
           </Button>
           <Button variant="whatsapp" size="sm" asChild>
@@ -126,6 +132,11 @@ export function Navbar() {
                 </Link>
               ))}
               <div className="mt-3 flex flex-col gap-2 border-t border-navy-100 pt-4 dark:border-navy-800">
+                <Button variant="outline" asChild>
+                  <Link href="/search" onClick={() => setOpen(false)}>
+                    Search
+                  </Link>
+                </Button>
                 <Button variant="outline" asChild>
                   <Link href="/portal/login" onClick={() => setOpen(false)}>
                     Client Portal

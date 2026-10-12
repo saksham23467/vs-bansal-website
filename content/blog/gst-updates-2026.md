@@ -5,6 +5,7 @@ category: "GST"
 tags: ["GST", "Compliance", "India"]
 coverImage: "/file.svg"
 date: "2026-01-12"
+updated: "2026-10-12"
 author: "V S bansal & associates Team"
 featured: true
 ---
@@ -22,3 +23,10 @@ If you are approaching threshold limits, pre‑stage masters early—HSN maps, p
 Document vendor declarations, reverse‑charge calls, and import scenarios in a shared evidence pack. It reduces scramble when auditors or banks ask for traceability.
 
 When in doubt, align with your CA **before** adopting an aggressive ITC position—a short memo today beats a lengthy inquiry later.
+
+## Official sources
+
+- [GST portal](https://www.gst.gov.in) — returns, e-invoice enablement and notices
+- [CBIC](https://www.cbic.gov.in) — circulars and notifications that change thresholds
+
+Figures and due dates on this page were reviewed on 12 October 2026. Confirm the live rule on those sites before you file.

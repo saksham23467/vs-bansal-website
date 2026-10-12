@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 import { JsonLd } from "@/components/seo/json-ld";
 import { LocalBusinessBlock } from "@/components/seo/local-business-block";
+import { OfficeLocation } from "@/components/seo/office-location";
 import { FadeIn } from "@/components/shared/fade-in";
 import { SectionHeading } from "@/components/shared/section-heading";
 import {
@@ -30,6 +31,8 @@ import { services } from "@/lib/services-data";
 
 type Props = { params: Promise<{ slug: string }> };
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return getAllSeoSlugs().map((slug) => ({ slug }));
 }
@@ -37,9 +40,9 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
   const page = getSeoPageBySlug(slug);
-  if (!page) return {};
+  if (!page) notFound();
   return buildMetadata({
-    title: page.metaTitle.replace(` | ${siteConfig.shortName}`, ""),
+    title: page.h1,
     description: page.metaDescription,
     path: `/${slug}`,
     keywords: page.keywords,
@@ -104,6 +107,11 @@ export default async function ProgrammaticSeoPage({ params }: Props) {
               </h1>
               <p className="mt-6 max-w-3xl text-lg text-navy-600 dark:text-navy-300">
                 {page.intro}
+              </p>
+              <p className="mt-3 text-sm text-navy-500">
+                Content reviewed{" "}
+                <time dateTime={siteConfig.contentReviewed}>{siteConfig.contentReviewed}</time>
+                . Fees and due dates can change — confirm on the official portals linked on our service pages.
               </p>
               <div className="mt-8 flex flex-wrap gap-4">
                 <Button size="lg" asChild>
@@ -180,13 +188,9 @@ export default async function ProgrammaticSeoPage({ params }: Props) {
                     <p className="mt-2 text-sm text-navy-600 dark:text-navy-300">
                       Pan-India clients welcome. Primary office at Pitampura for in-person meetings.
                     </p>
-                    <iframe
-                      title="V S bansal & associates office location"
-                      src={siteConfig.googleMapsEmbed}
-                      className="mt-4 h-72 w-full rounded-2xl border border-navy-100 dark:border-navy-800"
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
-                    />
+                    <div className="mt-4 rounded-2xl border border-navy-100 p-5 dark:border-navy-800">
+                      <OfficeLocation />
+                    </div>
                   </FadeIn>
                 )}
               </div>

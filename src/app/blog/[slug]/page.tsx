@@ -16,6 +16,8 @@ import { siteConfig } from "@/lib/site-config";
 
 type Props = { params: Promise<{ slug: string }> };
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return getAllPostSlugs().map((slug) => ({ slug }));
 }
@@ -23,7 +25,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
-  if (!post) return {};
+  if (!post) notFound();
   return buildMetadata({
     title: post.title,
     description: post.excerpt,
@@ -49,7 +51,11 @@ export default async function BlogPostPage({ params }: Props) {
             description: post.excerpt,
             url,
             datePublished: post.date,
+            dateModified: post.updated,
             author: post.author,
+            wordCount: post.wordCount,
+            articleSection: post.category,
+            keywords: post.tags,
           }),
           breadcrumbJsonLd([
             { name: "Blog", url: "/blog" },
@@ -75,7 +81,9 @@ export default async function BlogPostPage({ params }: Props) {
             </Button>
             <div className="flex flex-wrap items-center gap-2 text-sm text-navy-500">
               <Badge variant="navy">{post.category}</Badge>
-              <time dateTime={post.date}>{post.date}</time>
+              <time dateTime={post.date}>Published {post.date}</time>
+              <span>·</span>
+              <time dateTime={post.updated}>Updated {post.updated}</time>
               <span>·</span>
               <span>{post.readingTime}</span>
               <span>·</span>

@@ -5,6 +5,7 @@ category: "Income Tax"
 tags: ["ITR", "Salary", "Planning"]
 coverImage: "/file.svg"
 date: "2026-02-03"
+updated: "2026-10-12"
 author: "V S bansal & associates Team"
 featured: false
 ---

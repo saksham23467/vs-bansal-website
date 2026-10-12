@@ -51,6 +51,7 @@ const footerLinks = {
   resources: [
     ...localSearchLinks.slice(0, 6),
     { href: "/guides", label: "Tax Guides" },
+    { href: "/search", label: "Search" },
   ],
 };
 

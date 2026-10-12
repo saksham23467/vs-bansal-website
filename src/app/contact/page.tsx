@@ -1,8 +1,10 @@
-import { MapPin, Phone, Mail, MessageCircle } from "lucide-react";
+import { Phone, Mail, MessageCircle } from "lucide-react";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { FadeIn } from "@/components/shared/fade-in";
 import { Card, CardContent } from "@/components/ui/card";
 import { ContactForm } from "@/components/forms/contact-form";
+import { Breadcrumbs } from "@/components/seo/breadcrumbs";
+import { OfficeLocation } from "@/components/seo/office-location";
 import { buildMetadata } from "@/lib/seo";
 import { getTelHref, getWhatsAppUrl, siteConfig } from "@/lib/site-config";
 
@@ -21,8 +23,9 @@ export default function ContactPage() {
         <div className="pointer-events-none absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-25" aria-hidden />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <FadeIn>
+            <Breadcrumbs items={[{ name: "Contact", href: "/contact" }]} />
             <h1 className="text-4xl font-bold tracking-tight text-navy-900 sm:text-5xl dark:text-slate-50">
-              Let&apos;s map your next filing window
+              Contact
             </h1>
             <p className="mt-4 max-w-2xl text-lg text-navy-700 dark:text-slate-300">
               Share a short note about your entity and timelines—our desk responds within one business day.
@@ -74,46 +77,9 @@ export default function ContactPage() {
             {siteConfig.offices.map((office, i) => (
               <FadeIn key={office.region} delay={0.05 * (i + 1)}>
                 <Card className="overflow-hidden">
-                  <CardContent className="space-y-3 p-6">
-                    <div>
-                      <p className="text-xs font-semibold uppercase tracking-widest text-royal-600">
-                        {office.label}
-                      </p>
-                      <h3 className="font-semibold text-navy-900 dark:text-white">
-                        {office.region}
-                      </h3>
-                    </div>
-                    <div className="flex gap-3 text-sm text-navy-600 dark:text-navy-300">
-                      <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-royal-600" />
-                      <div>
-                        <p>{office.line1}</p>
-                        <p>{office.line2}</p>
-                        <p>
-                          {office.city}, {office.state} {office.postalCode}
-                        </p>
-                        <p>{office.country}</p>
-                      </div>
-                    </div>
+                  <CardContent className="p-6">
+                    <OfficeLocation office={office} />
                   </CardContent>
-                  <iframe
-                    title={`${siteConfig.name} — ${office.region} office`}
-                    src={office.mapsEmbed}
-                    className="aspect-video w-full border-0"
-                    loading="lazy"
-                    allowFullScreen
-                    referrerPolicy="no-referrer-when-downgrade"
-                  />
-                  <div className="border-t border-navy-100 p-3 dark:border-navy-800">
-                    <a
-                      href={office.mapsUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-sm font-medium text-royal-600 hover:underline"
-                    >
-                      <MapPin className="h-4 w-4" />
-                      Open in Google Maps
-                    </a>
-                  </div>
                 </Card>
               </FadeIn>
             ))}

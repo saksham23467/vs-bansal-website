@@ -5,7 +5,7 @@ import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export const metadata = buildMetadata({
-  title: "Tax & Compliance Guides",
+  title: "Tax & compliance guides",
   description:
     "Free GST, income tax, and startup compliance guides from V S bansal & associates — ICAI-registered chartered accountants in Delhi.",
   path: "/guides",
@@ -18,7 +18,7 @@ export default function GuidesPage() {
     <div className="pb-24">
       <section className="gradient-hero border-b border-navy-100 pb-12 pt-28 dark:border-navy-800 lg:pt-32">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <Breadcrumbs items={[{ name: "Guides", href: "/guides" }]} />
+          <Breadcrumbs items={[{ name: "Tax & compliance guides", href: "/guides" }]} />
           <h1 className="mt-4 text-4xl font-bold text-navy-900 dark:text-white">
             Tax & compliance guides
           </h1>

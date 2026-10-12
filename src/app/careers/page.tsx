@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import { CareersProvider } from "@/components/careers/careers-provider";
 import { ApplyButton } from "@/components/careers/apply-button";
 import { JobBoard } from "@/components/careers/job-board";
+import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 import { JsonLd } from "@/components/seo/json-ld";
 import { getPublicJobs } from "@/lib/careers";
 import {
@@ -27,7 +28,7 @@ import {
 } from "@/lib/seo";
 
 export const metadata = buildMetadata({
-  title: "Careers — CA Jobs, Articleship & Internships in Delhi",
+  title: "Build your career with industry experts",
   description:
     "Build your career with V S bansal & associates. Explore CA jobs in Delhi, CA Articleship, CA internships and Chartered Accountant opportunities across India. Apply online.",
   path: "/careers",
@@ -129,6 +130,7 @@ export default async function CareersPage() {
           <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid items-center gap-12 lg:grid-cols-2">
               <FadeIn>
+                <Breadcrumbs items={[{ name: "Careers", href: "/careers" }]} />
                 <span className="inline-flex items-center gap-2 rounded-full bg-royal-500/10 px-4 py-1.5 text-sm font-semibold text-royal-700 dark:text-royal-300">
                   <Briefcase className="h-4 w-4" />
                   {jobs.length > 0
@@ -136,7 +138,7 @@ export default async function CareersPage() {
                     : "Careers at V S bansal & associates"}
                 </span>
                 <h1 className="mt-5 text-4xl font-bold tracking-tight text-navy-900 sm:text-5xl lg:text-6xl dark:text-white">
-                  Build Your Career With Industry Experts
+                  Build your career with industry experts
                 </h1>
                 <p className="mt-5 max-w-xl text-lg text-navy-600 dark:text-navy-300">
                   Join a team of professionals helping businesses navigate

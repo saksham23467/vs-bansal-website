@@ -19,7 +19,7 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { siteConfig } from "@/lib/site-config";
 
 export const metadata = buildMetadata({
-  title: "Best CA in Delhi | CA Near Me Pitampura & NSP | ITR Filing",
+  title: "Helping businesses stay compliant | CA in Delhi",
   description: siteConfig.description,
   path: "/",
   keywords: [...siteConfig.keywords],

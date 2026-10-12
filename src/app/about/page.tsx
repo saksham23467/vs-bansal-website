@@ -5,6 +5,7 @@ import { FadeIn } from "@/components/shared/fade-in";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 import { buildMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
 
@@ -42,15 +43,16 @@ export default function AboutPage() {
         <div className="pointer-events-none absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-30" aria-hidden />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <FadeIn>
+            <Breadcrumbs items={[{ name: "About V S bansal & associates", href: "/about" }]} />
             <Badge variant="navy" className="mb-4">
               Since {siteConfig.founded}
             </Badge>
             <h1 className="max-w-3xl text-4xl font-bold tracking-tight text-navy-900 sm:text-5xl dark:text-slate-50">
-              A practice built for{" "}
-              <span className="text-royal-600 dark:text-royal-400">
-                precision, pace, and partnership
-              </span>
+              About V S bansal & associates
             </h1>
+            <p className="mt-4 max-w-3xl text-2xl font-semibold text-royal-600 dark:text-royal-400">
+              A practice built for precision, pace, and partnership
+            </p>
             <p className="mt-6 max-w-2xl text-lg text-navy-700 dark:text-slate-300">
               {siteConfig.name} couples ICAI rigour with operator empathy—so compliance becomes a backbone, not a
               bottleneck.

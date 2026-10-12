@@ -18,12 +18,13 @@ import { SectionHeading } from "@/components/shared/section-heading";
 import { FadeIn } from "@/components/shared/fade-in";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 import { services } from "@/lib/services-data";
 import { buildMetadata } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 
 export const metadata = buildMetadata({
-  title: "Services",
+  title: "Our services",
   description: "GST, income tax, ROC, audit, Virtual CFO, payroll, and more—structured CA services for Indian businesses.",
   path: "/services",
 });
@@ -55,6 +56,7 @@ export default function ServicesPage() {
         <div className="pointer-events-none absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-25" aria-hidden />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <FadeIn>
+            <Breadcrumbs items={[{ name: "Our services", href: "/services" }]} />
             <h1 className="text-4xl font-bold tracking-tight text-navy-900 sm:text-5xl dark:text-white">Our services</h1>
             <p className="mt-4 max-w-2xl text-lg text-navy-600 dark:text-navy-300">
               End-to-end compliance and finance support—organized into clear offerings with transparent playbooks.

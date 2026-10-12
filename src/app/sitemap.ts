@@ -5,9 +5,12 @@ import { getAllPostSlugs } from "@/lib/blog";
 import { getAllSeoSlugs } from "@/lib/programmatic-seo";
 import { getAllCategories, getAllTags } from "@/lib/blog";
 
+/** Frozen so content edits / deploys do not bump lastModified. */
+const SITEMAP_LAST_MODIFIED = new Date("2026-08-31T00:00:00.000Z");
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = siteConfig.url;
-  const now = new Date();
+  const now = SITEMAP_LAST_MODIFIED;
 
   const staticRoutes: MetadataRoute.Sitemap = [
     "",
@@ -19,7 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/locations",
     "/guides",
     "/careers",
-    "/portal/login",
+    "/search",
   ].map((path) => ({
     url: `${base}${path}`,
     lastModified: now,

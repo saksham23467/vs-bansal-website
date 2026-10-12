@@ -25,8 +25,12 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Breadcrumbs } from "@/components/seo/breadcrumbs";
+import { JsonLd } from "@/components/seo/json-ld";
+import { getServiceAdvice } from "@/lib/service-advice";
 import { getServiceBySlug, services } from "@/lib/services-data";
-import { buildMetadata, faqJsonLd } from "@/lib/seo";
+import { buildMetadata, combineJsonLd, faqJsonLd, serviceJsonLd } from "@/lib/seo";
+import { siteConfig } from "@/lib/site-config";
 
 const iconMap: Record<string, LucideIcon> = {
   Receipt,
@@ -45,6 +49,8 @@ const iconMap: Record<string, LucideIcon> = {
 
 type Props = { params: Promise<{ slug: string }> };
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
 }
@@ -52,7 +58,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
   const service = getServiceBySlug(slug);
-  if (!service) return {};
+  if (!service) notFound();
   return buildMetadata({
     title: service.title,
     description: service.shortDescription,
@@ -70,15 +76,30 @@ export default async function ServiceDetailPage({ params }: Props) {
     .map((s) => getServiceBySlug(s))
     .filter((s): s is NonNullable<typeof s> => Boolean(s));
 
-  const faqLd = faqJsonLd(service.faqs);
+  const advice = getServiceAdvice(service.slug);
+  const schemas = combineJsonLd(
+    faqJsonLd(service.faqs),
+    serviceJsonLd({
+      name: service.title,
+      description: service.shortDescription,
+      url: `${siteConfig.url}/services/${slug}`,
+      price: advice?.typicalCost,
+    })
+  );
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
+      <JsonLd data={schemas} />
       <div className="pb-24">
         <section className="gradient-hero relative overflow-hidden border-b border-navy-100 pb-14 pt-28 dark:border-navy-800 lg:pb-20 lg:pt-32">
           <div className="pointer-events-none absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-25" aria-hidden />
           <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <Breadcrumbs
+              items={[
+                { name: "Services", href: "/services" },
+                { name: service.title, href: `/services/${slug}` },
+              ]}
+            />
             <FadeIn>
               <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
                 <div className="max-w-3xl">
@@ -156,6 +177,55 @@ export default async function ServiceDetailPage({ params }: Props) {
               </Card>
             </div>
           </div>
+
+          {advice && (
+            <div className="mt-16 max-w-3xl space-y-8">
+              <section>
+                <h2 className="text-2xl font-bold text-navy-900 dark:text-white">Costs</h2>
+                <p className="mt-3 text-navy-600 dark:text-navy-300">{advice.typicalCost}</p>
+                <p className="mt-2 text-sm text-navy-500">
+                  Reviewed{" "}
+                  <time dateTime={siteConfig.contentReviewed}>{siteConfig.contentReviewed}</time>
+                  . These are planning ranges, not a quote. Government fees are extra.
+                </p>
+              </section>
+              <section>
+                <h2 className="text-2xl font-bold text-navy-900 dark:text-white">Alternatives</h2>
+                <ul className="mt-4 space-y-3 text-navy-600 dark:text-navy-300">
+                  {advice.alternatives.map((alt) => (
+                    <li key={alt.name}>
+                      <a
+                        href={alt.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-medium text-royal-600 hover:underline"
+                      >
+                        {alt.name}
+                      </a>
+                      — {alt.note}
+                    </li>
+                  ))}
+                </ul>
+              </section>
+              <section>
+                <h2 className="text-2xl font-bold text-navy-900 dark:text-white">Official sources</h2>
+                <ul className="mt-4 list-disc space-y-2 pl-5 text-navy-600 dark:text-navy-300">
+                  {advice.citations.map((c) => (
+                    <li key={c.url}>
+                      <a
+                        href={c.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-royal-600 hover:underline"
+                      >
+                        {c.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            </div>
+          )}
 
           <div className="mt-16 max-w-3xl">
             <SectionHeading eyebrow="FAQ" title={`Questions about ${service.title}`} align="left" className="mb-8" />

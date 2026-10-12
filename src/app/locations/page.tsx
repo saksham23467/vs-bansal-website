@@ -2,12 +2,13 @@ import Link from "next/link";
 import { MapPin, Phone, Mail } from "lucide-react";
 import { buildMetadata } from "@/lib/seo";
 import { Breadcrumbs } from "@/components/seo/breadcrumbs";
+import { OfficeLocation } from "@/components/seo/office-location";
 import { Card, CardContent } from "@/components/ui/card";
 import { localSearchLinks } from "@/lib/local-search-links";
 import { getTelHref, siteConfig } from "@/lib/site-config";
 
 export const metadata = buildMetadata({
-  title: "Our Offices — Pitampura, NSP, Delhi NCR & Punjab",
+  title: "Our offices",
   description:
     "Visit V S bansal & associates in Pitampura (Netaji Subhash Place / NSP) and Punjab. CA near me, ITR filing, GST, and accountant services for Delhi NCR and India.",
   path: "/locations",
@@ -84,26 +85,8 @@ export default function LocationsPage() {
                     </a>
                   </div>
 
-                  <div className="overflow-hidden rounded-xl border border-navy-100 dark:border-navy-800">
-                    <iframe
-                      title={`${siteConfig.name} — ${office.region} office`}
-                      src={office.mapsEmbed}
-                      className="aspect-video w-full border-0"
-                      loading="lazy"
-                      allowFullScreen
-                      referrerPolicy="no-referrer-when-downgrade"
-                    />
-                    <div className="border-t border-navy-100 p-3 dark:border-navy-800">
-                      <a
-                        href={office.mapsUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-sm font-medium text-royal-600 hover:underline"
-                      >
-                        <MapPin className="h-4 w-4" />
-                        Open in Google Maps
-                      </a>
-                    </div>
+                  <div className="rounded-xl border border-navy-100 p-4 dark:border-navy-800">
+                    <OfficeLocation office={office} />
                   </div>
                 </CardContent>
               </Card>

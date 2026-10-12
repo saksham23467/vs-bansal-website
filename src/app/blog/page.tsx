@@ -3,11 +3,12 @@ import { SectionHeading } from "@/components/shared/section-heading";
 import { FadeIn } from "@/components/shared/fade-in";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 import { getAllPosts } from "@/lib/blog";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
-  title: "Blog",
+  title: "Blog & insights",
   description: "Tax, GST, ROC, and startup compliance insights from V S bansal & associates.",
   path: "/blog",
 });
@@ -21,7 +22,8 @@ export default function BlogPage() {
         <div className="pointer-events-none absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-25" aria-hidden />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <FadeIn>
-            <h1 className="text-4xl font-bold tracking-tight text-navy-900 sm:text-5xl dark:text-white">Insights</h1>
+            <Breadcrumbs items={[{ name: "Blog & insights", href: "/blog" }]} />
+            <h1 className="text-4xl font-bold tracking-tight text-navy-900 sm:text-5xl dark:text-white">Blog & insights</h1>
             <p className="mt-4 max-w-2xl text-lg text-navy-600 dark:text-navy-300">
               Practical notes for founders, finance leads, and operators navigating Indian regulation.
             </p>
@@ -38,7 +40,7 @@ export default function BlogPage() {
                 <CardHeader>
                   <div className="mb-2 flex flex-wrap items-center gap-2 text-xs font-medium text-navy-500">
                     <Badge variant="navy">{post.category}</Badge>
-                    <span>{post.date}</span>
+                    <time dateTime={post.date}>{post.date}</time>
                     <span className="text-navy-400">·</span>
                     <span>{post.readingTime}</span>
                   </div>
