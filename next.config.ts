@@ -45,24 +45,6 @@ const nextConfig: NextConfig = {
       { source: "/tax-accountant-near-me", destination: "/accountant-near-me", permanent: true },
       { source: "/gst-consultant-near-me", destination: "/gst-filing-near-me", permanent: true },
       { source: "/gst-registration-near-me", destination: "/gst-filing-near-me", permanent: true },
-      {
-        source: "/:path*",
-        has: [{ type: "host", value: "www.vsbansalassociates.com" }],
-        destination: "https://vsbansalassociates.com/:path*",
-        permanent: true,
-      },
-      {
-        source: "/:path*",
-        has: [{ type: "host", value: "vsbansalca.com" }],
-        destination: "https://vsbansalassociates.com/:path*",
-        permanent: true,
-      },
-      {
-        source: "/:path*",
-        has: [{ type: "host", value: "www.vsbansalca.com" }],
-        destination: "https://vsbansalassociates.com/:path*",
-        permanent: true,
-      },
     ];
   },
   experimental: {
