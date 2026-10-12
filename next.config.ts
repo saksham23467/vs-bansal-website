@@ -24,6 +24,7 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // Do not add host-based www/apex redirects here — Vercel already maps the domain.
   async redirects() {
     return [
       { source: "/admin", destination: "/portal/admin", permanent: true },
