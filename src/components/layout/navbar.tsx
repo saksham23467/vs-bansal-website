@@ -46,10 +46,10 @@ export function Navbar() {
           : "bg-white/80 backdrop-blur-md dark:bg-navy-950/80"
       )}
     >
-      <nav className="mx-auto flex h-18 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Logo />
+      <nav className="mx-auto flex h-18 max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
+        <Logo className="shrink-0 [&_p]:whitespace-nowrap" />
 
-        <div className="hidden items-center gap-8 lg:flex">
+        <div className="hidden shrink-0 items-center gap-4 xl:flex">
           {navLinks.map((link) => (
             <Link
               key={link.href}
@@ -66,7 +66,7 @@ export function Navbar() {
           ))}
         </div>
 
-        <div className="hidden items-center gap-3 lg:flex">
+        <div className="hidden shrink-0 items-center gap-2 xl:flex">
           {mounted && (
             <button
               type="button"
@@ -77,10 +77,9 @@ export function Navbar() {
               {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             </button>
           )}
-          <Button variant="ghost" size="sm" asChild>
+          <Button variant="ghost" size="icon" className="size-9" asChild>
             <Link href="/search" aria-label="Search the website">
               <Search className="h-4 w-4" />
-              Search
             </Link>
           </Button>
           <Button variant="ghost" size="sm" asChild>
@@ -99,7 +98,7 @@ export function Navbar() {
 
         <button
           type="button"
-          className="rounded-lg p-2 text-navy-700 lg:hidden dark:text-white"
+          className="rounded-lg p-2 text-navy-700 xl:hidden dark:text-white"
           onClick={() => setOpen(!open)}
           aria-label="Toggle menu"
         >
@@ -113,7 +112,7 @@ export function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="border-t border-navy-100 bg-white lg:hidden dark:border-navy-800 dark:bg-navy-950"
+            className="border-t border-navy-100 bg-white xl:hidden dark:border-navy-800 dark:bg-navy-950"
           >
             <div className="flex flex-col gap-1 px-4 py-4">
               {navLinks.map((link) => (
