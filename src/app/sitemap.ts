@@ -5,12 +5,9 @@ import { getAllPostSlugs } from "@/lib/blog";
 import { getAllSeoSlugs } from "@/lib/programmatic-seo";
 import { getAllCategories, getAllTags } from "@/lib/blog";
 
-/** Frozen so content edits / deploys do not bump lastModified. */
-const SITEMAP_LAST_MODIFIED = new Date("2026-08-31T00:00:00.000Z");
-
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = siteConfig.url;
-  const now = SITEMAP_LAST_MODIFIED;
+  const now = new Date();
 
   const staticRoutes: MetadataRoute.Sitemap = [
     "",
